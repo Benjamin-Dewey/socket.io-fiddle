@@ -5,20 +5,13 @@ const socket = require('socket.io-client')('http://localhost:3000', {
 
 const openThenCloseOnConnect = (recursions) => {
   console.log('---START FUNCTION CALL---');
-
   socket.once('connect', () => {
     console.log('- connected socket', recursions);
-
     console.log('- closing socket', recursions);
     socket.close();
-
     console.log('---END FUNCTION CALL---');
     if (recursions > 0) openThenCloseOnConnect(recursions - 1)
-
-    // use the imeout below and things should always work
-    // if (recursions > 0) setTimeout(() => openThenClose(recursions - 1), 500);
   });
-
   console.log('- opening socket', recursions);
   socket.open();
 };
